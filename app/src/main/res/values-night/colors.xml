@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="fondo_oscuro">#3A3F54</color>
+    <color name="principal_oscuro">#6B856F</color>
+    <color name="segundo_oficial">#D27979</color>
+    <color name="accent_oscuro">#FFAA66</color>
+    <color name="texto_oscuro">#E5E5E5</color>
+    <color name="boton_oscuro">#4B6B6F</color>
+    <color name="ficha_oscuro">#333542</color>
+    <color name="divider_oscuro">#707070</color>
+</resources>
+
+

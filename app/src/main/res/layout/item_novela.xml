@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+    <TextView
+        android:id="@+id/textTituloNovel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="titulo" />
+
+
+    <TextView
+        android:id="@+id/textAutorNovel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="autor" />
+
+
+    <Button
+        android:id="@+id/btnVer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ver" />
+
+    <Button
+        android:id="@+id/btnBorrar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Borrar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnFavorito"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Añadir a favoritos"
+            android:layout_marginEnd="8dp"
+            />
+
+        <Button
+            android:id="@+id/btnXFavorito"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Borrar de favoritos" />
+
+        <ImageView
+            android:id="@+id/estrella"
+            android:layout_width="71dp"
+            android:layout_height="47dp"
+            android:layout_marginBottom="16dp"
+            android:clickable="true"
+            android:contentDescription="Favoritos"
+            android:focusable="true"
+            app:srcCompat="@android:drawable/btn_star" />
+            />
+
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/favo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="?android:attr/listDivider" />
+
+</LinearLayout>

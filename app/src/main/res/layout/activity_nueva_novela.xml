@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textTituloAlta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:text="Nueva Novela" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/editTitulo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Titulo de la novela"
+            />
+
+        <EditText
+            android:id="@+id/editAutor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Autor de la novela"
+            />
+
+        <EditText
+            android:id="@+id/editAño"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Año de publicación"
+            />
+
+        <EditText
+            android:id="@+id/editSinopsis"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Sinópsis"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <Button
+            android:id="@+id/btnGuardarNovela"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Guardar"
+            android:layout_marginEnd="8dp"
+            />
+
+        <Button
+            android:id="@+id/btnCancelar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Cancelar" />
+
+    </LinearLayout>
+
+</LinearLayout>

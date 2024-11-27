@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.Feedback6" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="Theme.GestorNovelas_BaseDatos" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/principal_claro</item>
+        <item name="colorPrimaryVariant">@color/segundo_claro</item>
+        <item name="colorSecondary">@color/accent_claro</item>
+        <item name="android:colorBackground">@color/fondo_claro</item>
+        <item name="android:textColor">@color/texto_claro</item>
+        <item name="colorButtonNormal">@color/boton_claro</item>
+    </style>
 </resources>
