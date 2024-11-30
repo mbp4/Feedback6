@@ -51,7 +51,7 @@
         </activity>
 
         <activity
-            android:name=".AcercaDeActivity"
+            android:name=".MapaActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.GestorNovelas_BaseDatos">
         </activity>

@@ -18,7 +18,7 @@ import com.google.firebase.firestore.firestore
 
 class MainActivity : AppCompatActivity() {
     private lateinit var btnAlta: Button
-    private lateinit var btnAcercaDe: Button
+    private lateinit var btnMapa: Button
     private lateinit var btnTema: ToggleButton
     private lateinit var btnConfig: ImageButton
     private lateinit var recyclerNovelas: RecyclerView
@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main) //se establece la vista de la actividad
 
         btnAlta = findViewById(R.id.btnAlta)
-        btnAcercaDe = findViewById(R.id.btnAcercaDe)
+        btnMapa = findViewById(R.id.btnAcercaDe)
         recyclerNovelas = findViewById(R.id.recyclerNovelas)
         btnTema = findViewById(R.id.btnTema)
         btnConfig = findViewById(R.id.btnAjustes)
@@ -61,10 +61,10 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         } //boton que nos lleva a la actividad de alta de novelas
 
-        btnAcercaDe.setOnClickListener {
-            val intent = Intent(this, AcercaDeActivity::class.java)
+        btnMapa.setOnClickListener {
+            val intent = Intent(this, MapaActivity::class.java)
             startActivity(intent)
-            //boton que nos lleva a la actividad de acerca de
+            //boton que nos lleva a la actividaddel mapa
         }
 
         btnConfig.setOnClickListener {
