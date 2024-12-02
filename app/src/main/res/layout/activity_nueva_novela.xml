@@ -35,8 +35,10 @@
             android:id="@+id/editAño"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Año de publicación"
-            />
+            android:hint="Año de la novela"
+            android:focusable="false"
+            android:clickable="true"
+            android:inputType="none" />
 
         <EditText
             android:id="@+id/editSinopsis"
@@ -44,6 +46,13 @@
             android:layout_height="wrap_content"
             android:hint="Sinópsis"
             />
+
+        <EditText
+            android:id="@+id/editPais"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="País de interes" />
+
 
     </LinearLayout>
 

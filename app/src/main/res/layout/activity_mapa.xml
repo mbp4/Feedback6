@@ -7,23 +7,28 @@
     <TextView
         android:id="@+id/tituloApp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:textAlignment="center"
         android:textSize="40sp"
-        android:text="Novelas" />
+        android:text="Zonas de Interes" />
 
-    <TextView
-        android:id="@+id/programadora"
+    <Spinner
+        android:id="@+id/spinnerNovelas"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:textSize="30sp"
-        android:text="Por Miriam" />
+        android:layout_margin="8dp" />
+
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/mapView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="8" />
 
     <Button
         android:id="@+id/aceptar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Aceptar" />
-
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="Volver" />
 </LinearLayout>
