@@ -20,6 +20,7 @@ class NovelasAdapter (private var novelas: MutableList<Novela>,
         val btnFavorito: Button = itemView.findViewById(R.id.btnFavorito)
         val btnXFavorito: Button = itemView.findViewById(R.id.btnXFavorito)
         val estrella: ImageView = itemView.findViewById(R.id.estrella)
+        val btnMapa2: Button = itemView.findViewById(R.id.btnMapa2)
         //creamos las correspodientes variables para que el activity sea funcional
     }
 
@@ -71,6 +72,10 @@ class NovelasAdapter (private var novelas: MutableList<Novela>,
             holder.estrella.setImageResource(R.drawable.normal) // Imagen de estrella vacía
         }
         //cambiamos el icono de la estrella segun el caso
+
+        holder.btnMapa2.setOnClickListener {
+            onNovelasClick(currentNovela, MainActivity.ACCION_MAPA)
+        }
 
         //en el caso de querer añadir o borrar de favoritos una novela se usaran estos botones
     }

@@ -1,5 +1,7 @@
 package com.example.feedback6
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.text.InputType
 import android.widget.Button
@@ -8,6 +10,10 @@ import android.widget.NumberPicker
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.firestore
@@ -22,6 +28,7 @@ class NuevaNovelaActivity: AppCompatActivity() {
     private lateinit var editSinopsis: EditText
     private lateinit var editPais: EditText
     private val db: FirebaseFirestore = Firebase.firestore
+    private lateinit var mMap: GoogleMap
     //creamos todas las variables necesarias para hacer la activity funcional
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -83,7 +90,10 @@ class NuevaNovelaActivity: AppCompatActivity() {
         val año = editAño.text.toString().toInt()
         val sinopsis = editSinopsis.text.toString()
         val pais = editPais.text.toString()
-        val nuevaNovela = Novela(titulo, autor, año, sinopsis, false, pais)
+        val posicionActual = calcularUbicacionActual()
+        val lat = posicionActual.latitude
+        val lon = posicionActual.longitude
+        val nuevaNovela = Novela(titulo, autor, año, sinopsis, false, pais, lat, lon)
         //creamos una nueva novela con sus correspondientes atributos
 
         db.collection("dbNovelas")
@@ -95,6 +105,38 @@ class NuevaNovelaActivity: AppCompatActivity() {
             .addOnFailureListener { e ->
                 Toast.makeText(this, "Error al guardar la novela: ${e.message}", Toast.LENGTH_SHORT).show()
             }
+    }
+
+    fun calcularUbicacionActual(): LatLng {
+        var posicionActual = LatLng(0.0, 0.0)
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED &&
+            ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                ),
+                1
+            )
+            return LatLng(0.0,0.0)
+        }
+
+        val fUsedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        fUsedLocationClient.lastLocation.addOnSuccessListener { location ->
+            if (location != null) {
+                val latitud = location.latitude
+                val longitud = location.longitude
+                posicionActual = LatLng(latitud, longitud)
+            }
+        }
+        return posicionActual
     }
 
 }

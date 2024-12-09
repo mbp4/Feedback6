@@ -32,6 +32,7 @@ class MainActivity : AppCompatActivity() {
         const val ACCION_BORRAR = 2
         const val ACCION_FAV = 3
         const val ACCION_XFAV = 4
+        const val ACCION_MAPA = 5
     }
     //declaramos todas las variables necesarias para hacer la aplicación funcional
 
@@ -63,6 +64,15 @@ class MainActivity : AppCompatActivity() {
 
         btnMapa.setOnClickListener {
             val intent = Intent(this, MapaActivity::class.java)
+            /*
+            val ubicaciones = arrayOf(
+                Triple(40.4168, -3.7038, "Madrid"),
+                Triple(40.486268319403564, -3.8984147831797604, "Las Rozas - Cien años de Soledad"),
+                Triple(41.6511, -0.8892, "Valencia - La Vuelta al Mundo en 80 Días"),
+            )
+            intent.putExtra("ubicaciones", ubicaciones)
+
+             */
             startActivity(intent)
             //boton que nos lleva a la actividaddel mapa
         }
@@ -131,6 +141,13 @@ class MainActivity : AppCompatActivity() {
                 añadirFavorita(novela)
             } else if (accion == ACCION_XFAV){
                 xFav(novela)
+            } else if (accion == ACCION_MAPA){
+                val intent = Intent(this, MapaActivity::class.java)
+                intent.putExtra("latitud", novela.latitud)
+                intent.putExtra("longitud", novela.longitud)
+                intent.putExtra("titulo", novela.titulo)
+                intent.putExtra("pais", novela.pais)
+                startActivity(intent)
             }
             //hacemos que el metodo identifique si el usuario quiere borrar, ver la novela o añadir o borrar de favoritos y se ejecuta la accion elegida
 
