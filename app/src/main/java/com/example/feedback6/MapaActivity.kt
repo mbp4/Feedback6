@@ -54,13 +54,6 @@ class MapaActivity: AppCompatActivity(){
         mapView.controller.setCenter(startPoint)
 
         addMarker(startPoint, "$pais - $titulo")
-
-        mapView.setOnClickListener { view ->
-            val geoPoint = mapView.mapCenter
-            addMarker(geoPoint, "Nueva Ubicación")
-            binding.edittextLatitud.setText(geoPoint.latitude.toString())
-            binding.edittextLongitud.setText(geoPoint.longitude.toString())
-        }
     }
 
     private fun addMarker(location: IGeoPoint, title: String) {

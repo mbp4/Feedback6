@@ -16,43 +16,17 @@
         android:text="Zonas de Interes" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="latitud" />
-
-    <EditText
-        android:id="@+id/edittext_latitud"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="numberDecimal"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="longitud" />
-
-    <EditText
-        android:id="@+id/edittext_longitud"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="numberDecimal"/>
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="true"
+        android:text="Para ver la posición pulse en el marcador" />
 
     <org.osmdroid.views.MapView
         android:id="@+id/map"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />
-
-    <TextView
-        android:id="@+id/zoomLevelTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:padding="16dp"
-        android:textSize="16sp"
-        android:text="Zoom Level: " />
-
 
     <Button
         android:id="@+id/aceptar"
