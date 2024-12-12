@@ -16,4 +16,12 @@ Por otra parte las novelas tienen un nuevo botón que te lleva a la ubicación m
 
 ## Cambios importantes
 
-Para poder mostrar el mapa se ha hecho uso de la Api de Google Maps, para esto hemos obtenido una API KEY y se ha introducido en el manifest, además de introducir en el gradle una nueva implementación para que el programa pueda ser posible. 
+Para poder mostrar el mapa se ha hecho uso de Open Street Map, para esto utilizamos una dependencia y utilizamos los imports de esta implementación para que el mapa sea posible, con esto al añadir ubicaciones se coge mediante longitud y latitud la ubicación que se ha introducido por pantalla, ademas de tener un botón que te lleva a un mapa que muestra la ubicación de Madrid por defecto.
+
+## Firebase
+
+Al añadir una ciudad se han cambiado los atributos en Firebase: 
+
+<img width="1153" alt="Captura de pantalla 2024-12-13 a las 0 15 06" src="https://github.com/user-attachments/assets/ca9c14c6-272a-45f5-ac50-52c9cbf8cd32" />
+
+Donde el atributo pais sera el lugar que el usuario quiera introducir como punto de interes. 
