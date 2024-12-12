@@ -2,6 +2,7 @@ package com.example.feedback6
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.location.Geocoder
 import android.os.Bundle
 import android.text.InputType
 import android.widget.Button
@@ -18,6 +19,7 @@ import com.google.firebase.Firebase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.firestore
 import java.util.Calendar
+import java.util.Locale
 
 class NuevaNovelaActivity: AppCompatActivity() {
     private lateinit var btnGuardarNovela: Button
@@ -90,9 +92,13 @@ class NuevaNovelaActivity: AppCompatActivity() {
         val año = editAño.text.toString().toInt()
         val sinopsis = editSinopsis.text.toString()
         val pais = editPais.text.toString()
-        val posicionActual = calcularUbicacionActual()
-        val lat = posicionActual.latitude
-        val lon = posicionActual.longitude
+        val posicion = calcularUbicacionDesdeCiudad(pais)
+        if (posicion == null) {
+            Toast.makeText(this, "No se pudo determinar la ubicación para $pais.", Toast.LENGTH_SHORT).show()
+            return
+        }
+        val lat = posicion.latitude
+        val lon = posicion.longitude
         val nuevaNovela = Novela(titulo, autor, año, sinopsis, false, pais, lat, lon)
         //creamos una nueva novela con sus correspondientes atributos
 
@@ -107,36 +113,20 @@ class NuevaNovelaActivity: AppCompatActivity() {
             }
     }
 
-    fun calcularUbicacionActual(): LatLng {
-        var posicionActual = LatLng(0.0, 0.0)
-        if (ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED &&
-            ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(
-                this,
-                arrayOf(
-                    Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_COARSE_LOCATION
-                ),
-                1
-            )
-            return LatLng(0.0,0.0)
-        }
-
-        val fUsedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-        fUsedLocationClient.lastLocation.addOnSuccessListener { location ->
-            if (location != null) {
-                val latitud = location.latitude
-                val longitud = location.longitude
-                posicionActual = LatLng(latitud, longitud)
+    fun calcularUbicacionDesdeCiudad(ciudad: String): LatLng? {
+        return try {
+            val geocoder = Geocoder(this, Locale.getDefault())
+            val direcciones = geocoder.getFromLocationName(ciudad, 1)
+            if (direcciones?.isNotEmpty() == true) {
+                val location = direcciones?.get(0)
+                location?.let { LatLng(it.latitude, location.longitude) }
+            } else {
+                null
             }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
         }
-        return posicionActual
     }
 
 }
