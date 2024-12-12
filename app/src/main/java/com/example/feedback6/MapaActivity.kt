@@ -4,29 +4,28 @@ import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.example.feedback6.databinding.ActivityMapaBinding
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.Marker
-import com.google.android.gms.maps.model.MarkerOptions
+import org.osmdroid.api.IGeoPoint
+import org.osmdroid.config.Configuration
+import org.osmdroid.util.GeoPoint
+import org.osmdroid.views.MapView
+import org.osmdroid.views.overlay.Marker
 
-
-class MapaActivity: AppCompatActivity(), OnMapReadyCallback {
-    private lateinit var mMap: GoogleMap
+class MapaActivity: AppCompatActivity(){
+    private lateinit var mapView: MapView
     private lateinit var binding: ActivityMapaBinding
+    private lateinit var btnVolver: Button
     private var currentMarker: Marker? = null
     private var lat: Double = 0.0
     private var lon: Double = 0.0
-    private lateinit var btnVolver: Button
     private var pais: String = ""
     private var titulo: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Configuration.getInstance().load(applicationContext, applicationContext.getSharedPreferences("osm_prefs", MODE_PRIVATE))
         binding = ActivityMapaBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         val latExtra = intent.getDoubleExtra("latitud", Double.NaN)
         val lonExtra = intent.getDoubleExtra("longitud", Double.NaN)
         val paisExtra = intent.getStringExtra("pais")
@@ -45,40 +44,34 @@ class MapaActivity: AppCompatActivity(), OnMapReadyCallback {
         }
 
         btnVolver = findViewById(R.id.aceptar)
-        btnVolver.setOnClickListener {
-            finish()
-        }
-        val mapFragment = supportFragmentManager
-            .findFragmentById(R.id.map) as SupportMapFragment
-        mapFragment.getMapAsync(this)
+        btnVolver.setOnClickListener { finish() }
 
+        mapView = findViewById(R.id.map)
+        mapView.setMultiTouchControls(true)
+
+        val startPoint = GeoPoint(lat, lon)
+        mapView.controller.setZoom(10.0)
+        mapView.controller.setCenter(startPoint)
+
+        addMarker(startPoint, "$pais - $titulo")
+
+        mapView.setOnClickListener { view ->
+            val geoPoint = mapView.mapCenter
+            addMarker(geoPoint, "Nueva Ubicación")
+            binding.edittextLatitud.setText(geoPoint.latitude.toString())
+            binding.edittextLongitud.setText(geoPoint.longitude.toString())
+        }
     }
 
-    override fun onMapReady(googleMap: GoogleMap) {
-        mMap = googleMap
-        var madridLatLong = LatLng(lat, lon)
-        var posicion2 = LatLng(40.48, -3.89)
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(madridLatLong, 10f))
-
-        currentMarker = mMap.addMarker(MarkerOptions().position(madridLatLong).title(pais + " - " + titulo))
-        currentMarker = mMap.addMarker(MarkerOptions().position(posicion2).title(pais + " - " + titulo))
-
-        binding.edittextLatitud.setText(madridLatLong.latitude.toString())
-        binding.edittextLongitud.setText(madridLatLong.longitude.toString())
-
-        mMap.uiSettings.isZoomControlsEnabled = true
-
-        mMap.setOnCameraIdleListener {
-            val zoomLevel = mMap.cameraPosition.zoom
-            binding.zoomLevelTextView.text = "Zoom Level: $zoomLevel"
+    private fun addMarker(location: IGeoPoint, title: String) {
+        currentMarker?.let { mapView.overlays.remove(it) }
+        currentMarker = Marker(mapView).apply {
+            position = location as GeoPoint?
+            setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
+            this.title = title
         }
-
-        mMap.setOnMapClickListener { latLng ->
-            currentMarker?.remove()
-            currentMarker = mMap.addMarker(MarkerOptions().position(latLng).title("Nueva Ubicación"))
-            binding.edittextLatitud.setText(latLng.latitude.toString())
-            binding.edittextLongitud.setText(latLng.longitude.toString())
-        }
+        mapView.overlays.add(currentMarker)
+        mapView.invalidate()
     }
 
 }
